@@ -135,8 +135,8 @@ def home():
 
 @app.route("/share/", methods = ["POST","GET"])
 def share():
-    if db_size>950:
-        return str(db_size)+"MB : databse size limit has exceeded <br>this is a rare case please contact the ownerof the webapp"
+    if get_size_of_db()>950:
+        return str(get_size_of_db())+"MB : databse size limit has exceeded <br>this is a rare case please contact the ownerof the webapp"
     return render_template("share.html") 
 
 @app.route("/success/", methods = ['POST'])
@@ -223,8 +223,7 @@ def delete_all_zip():
             #print("clutter cleared :" ,f)
 
 if __name__ == "__main__":
-    global db_size
-    db_size = get_size_of_db() 
+    
     #this cycle happens when the app starts a new dyno
     delete_all_zip()    #for clearing up the clutter
     #delete the files in the folder 'temp_files' 
