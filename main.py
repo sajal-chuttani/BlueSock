@@ -225,11 +225,11 @@ def delete_all_zip():
 if __name__ == "__main__":
     
     #this cycle happens when the app starts a new dyno
-    delete_all_zip()    #for clearing up the clutter
+    #delete_all_zip()    #for clearing up the clutter
     #delete the files in the folder 'temp_files' 
-    list_of_files = os.listdir('temp_files')
-    for f in list_of_files:
-            os.remove("temp_files/"+f)
+    #list_of_files = os.listdir('temp_files')
+    #for f in list_of_files:
+     #       os.remove("temp_files/"+f)
             #print("clutter cleared from temp_files:" ,f)
     app.run(debug = False)
     
