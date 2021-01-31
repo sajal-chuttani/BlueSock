@@ -41,11 +41,20 @@
     <script type="text/javascript">
         function showuploading() {
             var f = document.getElementById("files");
-            if(""==f.value){
+            var text = document.getElementById("username");
+            var re = /^[0-9_a-z]+$/;        //regex to checvk the input of username
+            if(!re.test(text.value)){
+                alert("Please dont include uppercase letters or special characters in your username (except for underscore(_)");
+                return 
+                console.log("hello i rached here");
+            }
+            else if(""==f.value){
                 alert("Please select one or more files")
                 return
             }
-            document.getElementById("upload").style.display = "";
+            else{
+                document.getElementById("upload").style.display = "";
+            }
         }
     </script>
 {% endblock %}
