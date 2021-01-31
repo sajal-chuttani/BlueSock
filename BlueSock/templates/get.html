@@ -33,10 +33,12 @@
                     
                    
                     <input type = "submit" value = "Retrieve"  class="btn btn-primary"  style="margin-top:20px;  height:auto ; width :auto;font-size:20px ;padding:10px">
+                    <BR><br>
+                    <div class="alert alert-warning" role="alert">
+                        Warning : Once you download the files all of them will be deleted from the database.
+                      </div>
                 </form>
-                <div class="alert alert-warning" role="alert">
-                    Warning : Once you download the files all of them will be deleted from the database.
-                  </div>
+                
             </div>
         {% endif %}
 
@@ -46,7 +48,7 @@
 
         {% if download is defined %}
             <div class="alert alert-warning" role="alert">
-               Your files will be deleted 
+               Your files will be deleted form our database once you download thwm on your machine
             </div>
             
                 <a href = "{{url_for('download',user_name = user_name, otp = otp)}}" style= "background-color:white;width :auto;color:white;text-decoration: none;">

@@ -68,7 +68,7 @@ def get_size_of_db():
     size = cur.fetchone()
     close_and_commit_connection(conn)
     res = [i for i in size[0].split()]
-    print(res) 
+    #print(res) 
     if(res[1] == 'kB'):
         return 1
     return int(res[0])
@@ -82,7 +82,7 @@ def write_to_file(binary_code, file_name):
     #converts the data from database back to a file object and returns it
     my_file = open(file_name, 'wb')
     my_file.write(binary_code)
-    print(f'Created file with name: {file_name}')
+    #print(f'Created file with name: {file_name}')
     return file_name
 
 
@@ -91,7 +91,7 @@ def enter_file_to_db(user_name,otp,file_name, data):
     cur,conn = connect_to_db()
     cur.execute(f"INSERT INTO {table} VALUES('{user_name}',{otp},'{file_name}',{data})")
     close_and_commit_connection(conn)
-    print("entered file")
+    #print("entered file")
 
 def get_all_from_db(user_name, otp):
     cur, conn = connect_to_db()
@@ -113,7 +113,7 @@ def check_all_from_db(user_name, otp):
 
 def delete_file(file):
     os.remove(file)
-    print("deleted file :",file)
+    #print("deleted file :",file)
 
 def make_into_zip(list_of_files,user_name):
     files = []
@@ -124,7 +124,7 @@ def make_into_zip(list_of_files,user_name):
         delete_file(each[2])  #takes file names
     zf.close()
    
-    print("these are files names in the zip:",files)
+    #print("these are files names in the zip:",files)
     
     return f'{user_name}.zip'
 
@@ -159,7 +159,7 @@ def success():
             file_data = f.read()
             totalfilesize += len(file_data)
             enter_file_to_db(user_name,otp,file_name,to_binary(file_data))
-            print(f"{file_name} written to database along with its name {f.filename.split('.')[0]}")
+            #print(f"{file_name} written to database along with its name {f.filename.split('.')[0]}")
  
         if totalfilesize >= fortyMb_inbytes:
             return render_template("share.html", error = "Your files exceed the memory limit")
@@ -172,7 +172,7 @@ def success():
 @app.route("/get/",methods = ['GET','POST'])
 def get(error = ''):
     if request.method == 'GET':
-        print(error)
+        #print(error)
         if error == '':
             return render_template("get.html",error = str(request.args.get('error')),form = True)
         else:
@@ -180,11 +180,12 @@ def get(error = ''):
     else:
         user_name = request.form["user_name"]
         otp = request.form["otp"]
-        print(otp,user_name)
+        #print(otp,user_name)
         list_of_entries = check_all_from_db(user_name,otp)  
         if len(list_of_entries) > 0: 
             for e in list_of_entries:
-                print(f"Present in database : {e}")
+                pass
+                #print(f"Present in database : {e}")
                 #write_to_file(e[1],e[0].split('.')[0]+'routed.'+e[0].split('.')[1])
         else:
             return redirect(url_for('get', error = "File not found. Please enter a valid username and otp."))
@@ -198,15 +199,15 @@ def download():
     otp = request.args.get('otp')
     
     list_of_files = get_all_from_db(user_name,otp)  #this function also deletes the entry from teh database
-    print('number of files',len(list_of_files))
+    #print('number of files',len(list_of_files))
     if len(list_of_files) == 1:
-        print("single file printed")
+        #print("single file printed")
         write_to_file(list_of_files[0][3],"temp_files/"+list_of_files[0][2])
         return send_file("temp_files/"+list_of_files[0][2],attachment_filename=list_of_files[0][2],as_attachment=True)
     else:
         #for multiple files
         zip_name = make_into_zip(list_of_files,user_name)
-    print(f"{zip_name} is now a zip file in your folder")
+    #print(f"{zip_name} is now a zip file in your folder")
     return send_file(zip_name,attachment_filename = zip_name, as_attachment=True)
 
 @app.route('/howitworks/')
@@ -219,7 +220,7 @@ def delete_all_zip():
     for f in list_of_files:
         if os.path.splitext(f)[1]==".zip":
             os.remove(f)
-            print("clutter cleared :" ,f)
+            #print("clutter cleared :" ,f)
 
 if __name__ == "__main__":
     global db_size
@@ -230,6 +231,6 @@ if __name__ == "__main__":
     list_of_files = os.listdir('temp_files')
     for f in list_of_files:
             os.remove("temp_files/"+f)
-            print("clutter cleared from temp_files:" ,f)
-    app.run(debug = True)
+            #print("clutter cleared from temp_files:" ,f)
+    app.run(debug = False)
     
