@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+     {% block title %}
+        Get Your Files
+     {% endblock %}
+            
+       
+
+{%block content%}
+
+        {% if error is defined and error != "None" %}
+            <div class="alert alert-danger" role="alert">
+                {{error}}
+                It is possible that the file you have requested has already been accessed and deleted from the database
+            </div>
+        {% endif %}
+
+        {% if form == True %}
+            <div class="input-group mb-3" style="margin-left:5%; margin-top:3%;">
+                <form method = 'POST' action = "#">
+                    
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label" style="font-size:20px; margin-bottom:0px">Username:</label>
+                        <div id="emailHelp" class="form-text" style="margin-bottom:2px">This is the username you will share with others</div>
+                        <input type ='text' name = "user_name" pattern="[a-z0-9_]+" style="width:100%;height:40px; padding:1%" required>
+                        <div id="emailHelp" class="form-text">*only enter lowercase letters, numbers or underscores(_)</div>
+
+                        <label for="exampleInputEmail1" class="form-label" style="font-size:20px; margin-bottom:0px">OTP:</label>
+                        <input type = "number" name="otp" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "4" style="width:100%;height:40px; padding:1%" required> 
+                    </div>
+
+
+                    
+                   
+                    <input type = "submit" value = "Retrieve"  class="btn btn-primary"  style="margin-top:20px;  height:auto ; width :auto;font-size:20px ;padding:10px">
+                </form>
+                <div class="alert alert-warning" role="alert">
+                    Warning : Once you download the files all of them will be deleted from the database.
+                  </div>
+            </div>
+        {% endif %}
+
+
+        
+
+
+        {% if download is defined %}
+            <div class="alert alert-warning" role="alert">
+               Your files will be deleted 
+            </div>
+            
+                <a href = "{{url_for('download',user_name = user_name, otp = otp)}}" style= "background-color:white;width :auto;color:white;text-decoration: none;">
+                    <button class="btn btn-primary btn-lg" style= "width :50%; margin:5%">
+                        Download files
+                    </button>
+                </a>
+            
+
+        {% endif %}
+        
+{%endblock%}

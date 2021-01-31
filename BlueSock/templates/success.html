@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Success{% endblock%}
+
+{%block content%}
+<div class="alert alert-primary" role="alert" >
+    Your files are successfully uploaded to the server !
+    Please make sure to take a note of the below credentials<br> or else nobody will be able to access shared files
+  </div>
+       
+     
+
+
+
+
+    <div class="card" style="margin-left:5%; margin-top:3%;width:50%;margin-bottom:10%">
+        <div class="card-body">
+            <h5 class="card-title">Credentials for your files</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Make sure to note them</h6>
+            <hr style = "width:80%">
+                <span style="font-size:27px">Username :&emsp;</span>
+                <span style="font-size:30px;  font-weight: bold;" id = "user_id">{{details[1]}}</span><br>
+                <span style="font-size:27px">OTP :&emsp;&emsp;&emsp;</span>
+                <span style="font-size:30px ;font-weight: bold;" id = "otp_id">{{details[0]}}</span>
+                <br>
+                <button onclick= "copy_func()" class="btn btn-outline-secondary" style= "margin-top:2.5%">Copy Credentials</button>
+        </div>
+      </div>
+
+
+      <script>
+          function copy_func() {
+  
+           var data = "Username: "+document.getElementById("user_id").textContent+"\nOTP: "+document.getElementById("otp_id").textContent;
+           console.log(data);
+           var dummy = document.createElement("textarea");
+           document.body.appendChild(dummy);
+           dummy.value = data;
+           dummy.select();
+           document.execCommand("copy");
+           document.body.removeChild(dummy);
+            alert("Copied the text: \n\n" + data);
+            }
+
+
+
+            
+      </script>
+{%endblock%}
+
+
+
+
