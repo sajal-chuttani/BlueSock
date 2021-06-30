@@ -1,0 +1,42 @@
+@font-face { 
+    font-family: baba;
+    src: url("../static/css/Coves\ Bold.otf"); 
+}
+
+a:hover {
+    background-color:#0492c2;
+}
+
+@keyframes ldio-9c27qfqiqy9 {
+    0% { background: #ffffff }
+    12.5% { background: #ffffff }
+    12.625% { background: #0051a2 }
+    100% { background: #0051a2 }
+}
+
+.ldio-9c27qfqiqy9 div {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: #0051a2;
+    animation: ldio-9c27qfqiqy9 1s linear infinite;
+}
+
+.loadingio-spinner-blocks-82q6epkk1xw {
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+    overflow: hidden;
+    background: none;
+}
+
+.ldio-9c27qfqiqy9 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform: translateZ(0) scale(1);
+    backface-visibility: hidden;
+    transform-origin: 0 0; /* see note above */
+}
+
+.ldio-9c27qfqiqy9 div { box-sizing: content-box; }
