@@ -25,6 +25,25 @@ table = 'test'
 database_name = os.getenv('DATABASE')
 
 
+def create_table():
+    '''Create table in database'''
+
+    try:
+        conn = psycopg2.connect(credentials)
+        cur = conn.cursor()
+        cur.execute('''CREATE TABLE IF NOT EXISTS test (
+                user_name TEXT,
+                otp INTEGER,
+                file_name TEXT,
+                file BYTEA
+                )''')
+        conn.commit()
+    except Exception:
+        return
+
+
+create_table()
+
 def connect_to_db():
     '''Connect to Postgresql database'''
 
