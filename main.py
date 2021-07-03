@@ -1,4 +1,5 @@
 import os
+import sys
 import random
 from zipfile import ZipFile
 from flask import Flask, render_template, redirect, request, url_for
@@ -198,12 +199,13 @@ def success():
         for f in request.files.getlist("files"):
             file_name = f.filename
             file_data = f.read()
-            totalfilesize += len(file_data)
-            enter_file_to_db(user_name, otp, file_name, to_binary(file_data))
+            totalfilesize += sys.getsizeof(file_data)
             # print(f"{file_name} written to database along with its name {f.filename.split('.')[0]}")
  
         if totalfilesize >= fortyMb_inbytes:
             return render_template("share.html", error="Your files exceed the memory limit")
+
+        enter_file_to_db(user_name, otp, file_name, to_binary(file_data))
 
     return render_template("success.html", details=(otp, user_name))
 
