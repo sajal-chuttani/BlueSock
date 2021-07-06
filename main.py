@@ -104,7 +104,9 @@ def get_size_of_db():
     '''Get size of the database'''
 
     cur, conn = connect_to_db()
-    cur.execute("SELECT pg_size_pretty( pg_database_size('bluesockdb') );")
+    cur.execute("SELECT pg_size_pretty( pg_database_size('dd397n8dctvgb2') );") 
+    # cur.execute("SELECT pg_size_pretty( pg_database_size('bluesockdb') );") 
+    # change the databasename to the deault one you are testing on 
     size = cur.fetchone()
     close_and_commit_connection(conn)
     res = [i for i in size[0].split()]
