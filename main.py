@@ -196,18 +196,21 @@ def success():
 
         otp = generate_otp()
         totalfilesize = 0
+
         for f in request.files.getlist("files"):
             file_name = f.filename
             file_data = f.read()
             totalfilesize += sys.getsizeof(file_data)
+            if totalfilesize >= fortyMb_inbytes:
+                return render_template("share.html", error="Your files exceed the memory limit")
+
+        for f in request.files.getlist("files"):
+            file_name = f.filename
+            file_data = f.read()
             # print(f"{file_name} written to database along with its name {f.filename.split('.')[0]}")
- 
-        if totalfilesize >= fortyMb_inbytes:
-            return render_template("share.html", error="Your files exceed the memory limit")
+            enter_file_to_db(user_name, otp, file_name, to_binary(file_data))
 
-        enter_file_to_db(user_name, otp, file_name, to_binary(file_data))
-
-    return render_template("success.html", details=(otp, user_name))
+        return render_template("success.html", details=(otp, user_name))
 
 
 @app.route("/get/", methods=['GET', 'POST'])
